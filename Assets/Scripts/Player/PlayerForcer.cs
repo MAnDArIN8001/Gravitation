@@ -63,6 +63,7 @@ public class PlayerForcer : MonoBehaviour
             _isSliding = false;
 
             ThrowPlayer(direction.normalized);
+            Destroy(gameObject);
         }
 
         _lastMousePosition = Input.mousePosition;
