@@ -1,27 +1,26 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Gravity : MonoBehaviour
 {
-    private float attractionForce = 10f; // Сила притяжения
+    [SerializeField] private float _attractionForce = 10f; // Сила притяжения
+    [SerializeField] private float _rotationSpeed = 1f;
     
-    private HashSet<Transform> gravityObjects;
-    private Rigidbody2D rigidbody2D;
+    private HashSet<Transform> _gravityObjects;
+    private Rigidbody2D _rigidbody2D;
 
     private void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        gravityObjects = new();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _gravityObjects = new();
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(Tags.Gravity))
-        {   
-            gravityObjects.Add(other.transform);
+        {
+            _gravityObjects.Add(other.transform);
         }
     }
 
@@ -29,19 +28,28 @@ public class Gravity : MonoBehaviour
     {
         if (other.CompareTag(Tags.Gravity))
         {
-            gravityObjects.Remove(other.transform);
+            _gravityObjects.Remove(other.transform);
         }
     }
-    
+
     private void FixedUpdate()
     {
-        foreach (var gravityObject in gravityObjects)
+        Vector3 min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+        foreach (var gravityObject in _gravityObjects)
         {
             var delta = transform.position - gravityObject.transform.position;
+            if (delta.magnitude < min.magnitude)
+            {
+                min = delta;
+            }
+
             Vector3 directionToCenter = -delta.normalized;
-            rigidbody2D.AddForce(directionToCenter * attractionForce);
+            _rigidbody2D.AddForce(directionToCenter * _attractionForce);
         }
+
+        float angle = Mathf.Atan2(min.y, min.x) * Mathf.Rad2Deg - 90f;
+        // Устанавливаем вращение объекта по оси Z
+        var targetRotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
     }
-
-
 }
