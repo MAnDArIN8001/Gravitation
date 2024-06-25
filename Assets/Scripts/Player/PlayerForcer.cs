@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 public class PlayerForcer : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class PlayerForcer : MonoBehaviour
     private Vector2 _lastMousePosition;
 
     private Player _player;
+
+    [Inject]
+    private void Initialize(Player player)
+    {
+        _player = player;
+    }
 
     private void Update()
     {

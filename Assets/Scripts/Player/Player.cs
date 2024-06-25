@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D _rigidbody;
 
-    public Rigidbody2D Rigidbody;
+    public Rigidbody2D Rigidbody => _rigidbody;
 
     private void Awake()
     {
@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if (collision.gameObject.TryGetComponent<>)
+        if (collision.gameObject.TryGetComponent<Gravity>(out var gravity))
+        {
+            OnCollideWithPlanet?.Invoke();
+        }
     }
 }
