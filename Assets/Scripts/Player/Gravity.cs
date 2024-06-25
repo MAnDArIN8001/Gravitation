@@ -34,6 +34,8 @@ public class Gravity : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(_gravityObjects.Count == 0) return;
+        
         Vector3 min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
         foreach (var gravityObject in _gravityObjects)
         {
@@ -48,7 +50,7 @@ public class Gravity : MonoBehaviour
         }
 
         float angle = Mathf.Atan2(min.y, min.x) * Mathf.Rad2Deg - 90f;
-        // Устанавливаем вращение объекта по оси Z
+        
         var targetRotation = Quaternion.Euler(new Vector3(0, 0, angle));
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
     }
