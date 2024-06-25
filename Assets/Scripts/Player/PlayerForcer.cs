@@ -13,12 +13,19 @@ public class PlayerForcer : MonoBehaviour
     private Vector2 _startSlidingPoint;
     private Vector2 _lastMousePosition;
 
+    private TrajectoryRenderer _trajectroyRenderer;
+
     private Player _player;
 
     [Inject]
     private void Initialize(Player player)
     {
         _player = player;
+    }
+
+    private void Awake()
+    {
+        _trajectroyRenderer = GetComponent<TrajectoryRenderer>();
     }
 
     private void Update()
@@ -43,6 +50,10 @@ public class PlayerForcer : MonoBehaviour
             }
 
             _lastMousePosition = Input.mousePosition;
+
+            Vector3 currentDirection = (Vector3)_startSlidingPoint - Input.mousePosition;
+
+            _trajectroyRenderer.ShowTrajectory(transform.position, currentDirection.normalized * (_force/_maxForce));
         }
 
         if (Input.GetMouseButtonUp(0))
