@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class LevelLoader : GameObjectLoader<MonoBehaviour>{}// Навсякий, вдруг нам понадобятся скрипты level
+public class LevelLoader : GameObjectLoader<GameObject>{}// Навсякий, вдруг нам понадобятся скрипты level
 
-public abstract class GameObjectLoader<T> where T : MonoBehaviour
+public abstract class GameObjectLoader<T> where T : Object
 {
     public static T Load(string path)
     {
@@ -13,7 +13,12 @@ public abstract class GameObjectLoader<T> where T : MonoBehaviour
     public static T Create(string path)
     {
         var prefabs = Load(path);
-        return Object.Instantiate(prefabs);
+        if (prefabs)
+        {
+            return Object.Instantiate(prefabs);
+        }
+
+        return null;
     }
 }
     
