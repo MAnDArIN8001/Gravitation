@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-    public event Action OnCollideWithWrongPlanet;
+    public event Action OnDied;
     public event Action OnCollideWithTargetPlanet;
 
     private Rigidbody2D _rigidbody;
@@ -22,12 +22,22 @@ public class Player : MonoBehaviour
         {
             if (planet.PlanetType == PlanetTypes.Wrong)
             {
-                OnCollideWithWrongPlanet?.Invoke();
+                OnDied?.Invoke();
             } 
             else if (planet.PlanetType == PlanetTypes.Target)
             {
                 OnCollideWithTargetPlanet?.Invoke();
             }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log(collision.name);
+
+        if (collision.TryGetComponent<SafeZone>(out var safeZone))
+        {
+            OnDied?.Invoke();
         }
     }
 }
