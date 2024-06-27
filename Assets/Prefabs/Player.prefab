@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ec5bfa1ef62b841a222484a3e48cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deathEffect: {fileID: 4734113462435090961, guid: c15955a9fa1663345aead02c1532a332, type: 3}
 --- !u!114 &4248023958706885487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,5 +188,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d09646436fc94f4ab63ab1fba476433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attractionForce: 2
   _rotationSpeed: 5

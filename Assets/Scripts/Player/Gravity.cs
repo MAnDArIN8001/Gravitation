@@ -4,10 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Gravity : MonoBehaviour
 {
-    [SerializeField] private float _attractionForce = 10f; // Сила притяжения
     [SerializeField] private float _rotationSpeed = 1f;
     
-    private HashSet<Transform> _gravityObjects;
+    private HashSet<Planet> _gravityObjects;
     private Rigidbody2D _rigidbody2D;
 
     private void Start()
@@ -18,17 +17,17 @@ public class Gravity : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(Tags.Gravity))
+        if (other.TryGetComponent<Planet>(out var planet))
         {
-            _gravityObjects.Add(other.transform);
+            _gravityObjects.Add(planet);
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag(Tags.Gravity))
+        if (other.TryGetComponent<Planet>(out var planet))
         {
-            _gravityObjects.Remove(other.transform);
+            _gravityObjects.Remove(planet);
         }
     }
 
@@ -40,13 +39,16 @@ public class Gravity : MonoBehaviour
         foreach (var gravityObject in _gravityObjects)
         {
             var delta = transform.position - gravityObject.transform.position;
+
             if (delta.magnitude < min.magnitude)
             {
                 min = delta;
             }
 
+            float attracrtionForce = gravityObject.AttractionForce;
             Vector3 directionToCenter = -delta.normalized;
-            _rigidbody2D.AddForce(directionToCenter * _attractionForce);
+
+            _rigidbody2D.AddForce(directionToCenter * attracrtionForce);
         }
 
         float angle = Mathf.Atan2(min.y, min.x) * Mathf.Rad2Deg - 90f;
