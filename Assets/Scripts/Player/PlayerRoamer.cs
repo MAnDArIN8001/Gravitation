@@ -14,6 +14,16 @@ public class PlayerRoamer : MonoBehaviour
 
     private void Start()
     {
+        SetRandomVelocity();
+    }
+
+    private void OnMouseDown()
+    {
+        SetRandomVelocity();
+    }
+
+    private void SetRandomVelocity()
+    {
         float randomForce = Random.Range(0.0f, _maxForce);
 
         Vector2 randomDirection = GetRandomDirection();
