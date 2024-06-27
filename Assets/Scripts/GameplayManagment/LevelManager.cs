@@ -20,13 +20,13 @@ public class LevelManager : MonoBehaviour
     private void OnEnable()
     {
         _player.OnCollideWithTargetPlanet += HandleCollisionWithTargetPlanet;
-        _player.OnCollideWithWrongPlanet += HandleCollisionWithWrongPlanet;
+        _player.OnDied += HandleCollisionWithWrongPlanet;
     }
 
     private void OnDisable()
     {
         _player.OnCollideWithTargetPlanet -= HandleCollisionWithTargetPlanet;
-        _player.OnCollideWithWrongPlanet -= HandleCollisionWithWrongPlanet;
+        _player.OnDied -= HandleCollisionWithWrongPlanet;
     }
 
     private void HandleCollisionWithWrongPlanet()
