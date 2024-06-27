@@ -1,18 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
 public class PlayerView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject _deathEffect;
+
+    private Player _player;
+
+    private void Awake()
     {
-        
+        _player = GetComponent<Player>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        _player.OnCollideWithWrongPlanet += HandleCollisionWithPlanet;
+    }
+
+    private void OnDisable()
+    {
+        _player.OnCollideWithWrongPlanet -= HandleCollisionWithPlanet;
+    }
+
+    private void HandleCollisionWithPlanet()
+    {
+        Instantiate(_deathEffect, transform.position, Quaternion.identity);
     }
 }

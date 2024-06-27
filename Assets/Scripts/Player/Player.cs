@@ -4,7 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-    public event Action OnCollideWithPlanet;
+    public event Action OnCollideWithWrongPlanet;
+    public event Action OnCollideWithTargetPlanet;
 
     private Rigidbody2D _rigidbody;
 
@@ -15,11 +16,18 @@ public class Player : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.TryGetComponent<Gravity>(out var gravity))
+        if (collision.gameObject.TryGetComponent<Planet>(out var planet))
         {
-            OnCollideWithPlanet?.Invoke();
+            if (planet.PlanetType == PlanetTypes.Wrong)
+            {
+                OnCollideWithWrongPlanet?.Invoke();
+            } 
+            else if (planet.PlanetType == PlanetTypes.Target)
+            {
+                OnCollideWithTargetPlanet?.Invoke();
+            }
         }
     }
 }
