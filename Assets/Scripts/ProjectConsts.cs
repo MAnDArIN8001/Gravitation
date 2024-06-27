@@ -5,6 +5,8 @@ public static class ProjectConsts
     public static readonly int MainMenuLvlId = 0;
     public static readonly int MenuLvlId = 1;
     public static readonly int LvlsMenuId = 2;
+    public static readonly int GameScene = 2;
+
 
     public static readonly string LevelDataResourceName = "LevelData";
 

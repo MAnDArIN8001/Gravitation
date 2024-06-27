@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,15 @@ public class LevelManager : MonoBehaviour
     private ScenManager _scenManager;
 
     private LevelData _levelData;
+
+    private LevelLoader _levelLoader;
+    private GameObject level;
+
+    private void Awake()
+    {
+        var levelId = PlayerPrefs.GetInt(PlayerPrefsConst.LevelID);
+        level = LevelLoader.Create($"Levels/{levelId}").gameObject;
+    }
 
     [Inject]
     private void Initialize(Player player, ScenManager scenManager, LevelData levelData)
@@ -27,6 +37,11 @@ public class LevelManager : MonoBehaviour
     {
         _player.OnCollideWithTargetPlanet -= HandleCollisionWithTargetPlanet;
         _player.OnCollideWithWrongPlanet -= HandleCollisionWithWrongPlanet;
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(level);
     }
 
     private void HandleCollisionWithWrongPlanet()
