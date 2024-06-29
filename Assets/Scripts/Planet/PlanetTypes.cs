@@ -1,5 +1,5 @@
 public enum PlanetTypes 
 {
-    Wrong,
-    Target
+    Groundable,
+    Ungroundable
 }

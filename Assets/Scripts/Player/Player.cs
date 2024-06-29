@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public event Action OnDied;
-    public event Action OnCollideWithTargetPlanet;
+    public event Action OnCollideWithGroundablePlanet;
 
     private Rigidbody2D _rigidbody;
 
@@ -20,21 +20,21 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<Planet>(out var planet))
         {
-            if (planet.PlanetType == PlanetTypes.Wrong)
+            if (planet.PlanetType == PlanetTypes.Ungroundable)
             {
                 OnDied?.Invoke();
             } 
-            else if (planet.PlanetType == PlanetTypes.Target)
+            else if (planet.PlanetType == PlanetTypes.Groundable)
             {
-                OnCollideWithTargetPlanet?.Invoke();
+                OnCollideWithGroundablePlanet?.Invoke();
+
+                transform.SetParent(planet.transform);
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
-
         if (collision.TryGetComponent<SafeZone>(out var safeZone))
         {
             OnDied?.Invoke();
