@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
 
     private LevelLoader _levelLoader;
     private GameObject level;
+    private PlayerForcer _playerForcer;
 
     private void Awake()
     {
@@ -20,17 +21,29 @@ public class LevelManager : MonoBehaviour
     }
 
     [Inject]
-    private void Initialize(Player player, ScenManager scenManager, LevelData levelData)
+    private void Initialize(
+        Player player, 
+        ScenManager scenManager, 
+        LevelData levelData,
+        PlayerForcer playerForcer)
     {
         _player = player;
         _scenManager = scenManager;
         _levelData = levelData;
+        _playerForcer = playerForcer;
     }
 
     private void OnEnable()
     {
         _player.OnCollideWithTargetPlanet += HandleCollisionWithTargetPlanet;
+        _player.OnCollideWithPlanet += PlayerOnOnCollideWithPlanet;
         _player.OnDied += HandleCollisionWithWrongPlanet;
+    }
+
+    private void PlayerOnOnCollideWithPlanet()
+    {
+        _playerForcer.Enable();
+        _player.Rigidbody.velocity = Vector2.zero;
     }
 
     private void OnDisable()

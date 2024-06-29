@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -215,6 +216,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de1bac18d06674246ba5bb81ce4dc9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothSpeed: 0.125
+  offset: {x: 0, y: 0, z: -10}
 --- !u!114 &682221106 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4016548197448335924, guid: f1fdedef2f862464eacc366d165c649f, type: 3}
@@ -376,9 +391,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3793d0e2b2df2e44388dc98f8e3ab78d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxForce: 300
+  _maxForce: 3000
   _minForce: 0
-  _sensitivity: 0.8
+  _sensitivity: 200
   _force: 0
 --- !u!114 &1128462752
 MonoBehaviour:
@@ -689,6 +704,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 205358444158360379, guid: f1fdedef2f862464eacc366d165c649f, type: 3}
+      propertyPath: _playerForcer
+      value: 
+      objectReference: {fileID: 1128462751}
     - target: {fileID: 205358444158360379, guid: f1fdedef2f862464eacc366d165c649f, type: 3}
       propertyPath: _playerInitialPosition
       value: 

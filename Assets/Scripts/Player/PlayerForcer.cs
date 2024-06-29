@@ -1,7 +1,9 @@
+using System;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
-public class PlayerForcer : MonoBehaviour
+public class PlayerForcer : MonoBehaviour, ITickable
 {
     private bool _isSliding = false;
 
@@ -9,68 +11,89 @@ public class PlayerForcer : MonoBehaviour
     [SerializeField] private float _minForce;
     [SerializeField] private float _sensitivity;
     [SerializeField] private float _force;
+    
 
     private Vector2 _startSlidingPoint;
-    private Vector2 _lastMousePosition;
+    private Vector3 _forceDirection;
 
     private TrajectoryRenderer _trajectroyRenderer;
 
+    private bool _enabled = false;
+    
     private Player _player;
+    private TickableManager _tickableManager;
 
     [Inject]
-    private void Initialize(Player player)
+    private void Initialize(Player player, TickableManager tickableManager)
     {
         _player = player;
+        _tickableManager = tickableManager;
+        Enable();
     }
 
+    public void Enable()
+    {
+        if (!_enabled)
+        {
+            _tickableManager.Add(this);
+            _enabled = true;
+        }
+    }
+
+    public void Disable()
+    {
+        if (_enabled)
+        {
+            _tickableManager.Remove(this);
+            _enabled = false;
+        }
+    }
     private void Awake()
     {
         _trajectroyRenderer = GetComponent<TrajectoryRenderer>();
     }
 
-    private void Update()
+    private void ThrowPlayer(Vector2 direction)
+    {
+        _player.Rigidbody.AddForce(direction * _force);
+    }
+
+    public void Tick()
     {
         if (Input.GetMouseButtonDown(0))
         { 
+            var mousePosition = Camera.main!.ScreenToWorldPoint(Input.mousePosition);
+
             _isSliding = true;
-            _startSlidingPoint = Input.mousePosition;
         }
 
         if (_isSliding)
         {
-            _force += (_lastMousePosition.y - Input.mousePosition.y) * _sensitivity;
-
+            var playerPosition = _player.transform.position;
+            var mousePosition = Camera.main!.ScreenToWorldPoint(Input.mousePosition);
+            _forceDirection = -(playerPosition - mousePosition).normalized;
+            
+            _force = (playerPosition - mousePosition).magnitude * _sensitivity;
+            
             if (_force < _minForce)
             {
-                _force = _minForce;
+                _force =  _minForce;
             }
             else if (_force > _maxForce)
             {
                 _force = _maxForce;
             }
-
-            _lastMousePosition = Input.mousePosition;
-
-            Vector3 currentDirection = (Vector3)_startSlidingPoint - Input.mousePosition;
-
-            _trajectroyRenderer.ShowTrajectory(transform.position, currentDirection.normalized * (_force/_maxForce));
+            _trajectroyRenderer.ShowTrajectory(playerPosition, _forceDirection * (_force/_maxForce));
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            Vector2 direction = _startSlidingPoint - (Vector2)Input.mousePosition;
-
             _isSliding = false;
-
-            ThrowPlayer(direction.normalized);
-            Destroy(gameObject);
+            
+            _trajectroyRenderer.HideTrajectory();
+            
+            ThrowPlayer(_forceDirection);
+            Disable();
         }
-
-        _lastMousePosition = Input.mousePosition;
-    }
-
-    private void ThrowPlayer(Vector2 direction)
-    {
-        _player.Rigidbody.AddForce(direction * _force);
     }
 }

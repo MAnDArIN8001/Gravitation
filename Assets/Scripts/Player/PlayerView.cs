@@ -15,10 +15,13 @@ public class PlayerView : MonoBehaviour
     private void OnEnable()
     {
         _player.OnDied += HandleCollisionWithPlanet;
+        _player.OnCollideWithPlanet += HandleCollisionWithPlanet;
+
     }
 
     private void OnDisable()
     {
+        _player.OnCollideWithPlanet -= HandleCollisionWithPlanet;
         _player.OnDied -= HandleCollisionWithPlanet;
     }
 
