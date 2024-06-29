@@ -7,8 +7,8 @@ public static class ProjectConsts
     public static readonly int LvlsMenuId = 2;
     public static readonly int GameplayScene = 3;
 
-
     public static readonly string LevelDataResourceName = "LevelData";
+    public static readonly string LevelScorePrefsName = "Score";
 
     public static readonly Dictionary<LevelResult, string> LevelResults = new Dictionary<LevelResult, string>() 
     {
