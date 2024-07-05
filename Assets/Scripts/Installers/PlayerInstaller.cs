@@ -10,6 +10,8 @@ public class PlayerInstaller : MonoInstaller
 
     [SerializeField] private GameObject _player;
 
+    [SerializeField] private PlayerForcer _playerForcer;
+
     public override void InstallBindings()
     {
         GameObject player = Container.InstantiatePrefab(_player, _playerInitialPosition.position, _playerInitialRotation, null);

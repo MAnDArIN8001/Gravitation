@@ -6,6 +6,9 @@ public class Player : MonoBehaviour
 {
     public event Action OnDied;
     public event Action OnCollideWithGroundablePlanet;
+    public event Action OnCollideWithLevelLayer;
+
+    [SerializeField] private float _minVelocityMagnitude;
 
     private Rigidbody2D _rigidbody;
 
@@ -30,6 +33,14 @@ public class Player : MonoBehaviour
 
                 transform.SetParent(planet.transform);
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<LevelLayer>(out var layer))
+        {
+            OnCollideWithLevelLayer?.Invoke();
         }
     }
 

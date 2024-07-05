@@ -2,10 +2,9 @@ using System.Collections.Generic;
 
 public static class ProjectConsts
 {
-    public static readonly int MainMenuLvlId = 0;
-    public static readonly int MenuLvlId = 1;
-    public static readonly int LvlsMenuId = 2;
-    public static readonly int GameplayScene = 3;
+    public static readonly int MainMenuSceneId = 0;
+    public static readonly int MenuSceneId = 1;
+    public static readonly int GameplaySceneId = 2;
 
     public static readonly string LevelDataResourceName = "LevelData";
     public static readonly string LevelScorePrefsName = "Score";
