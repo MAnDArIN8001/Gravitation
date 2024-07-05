@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour
 
     private void HadlePlayerDeath()
     {
-        _scenManager.LoadSceneAsync(ProjectConsts.MenuLvlId);
+        _scenManager.LoadSceneAsync(ProjectConsts.MenuSceneId);
 
         _levelData.LevelResult = LevelResult.Loose;
     }

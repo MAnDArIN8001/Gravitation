@@ -172,6 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attractionForce: 10
   _rotationSpeed: 1
+  _rotationDirection: -1
   _planetType: 0
 --- !u!1 &3529297834294156428
 GameObject:

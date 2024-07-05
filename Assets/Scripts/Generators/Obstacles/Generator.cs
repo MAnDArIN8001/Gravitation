@@ -6,28 +6,31 @@ public abstract class Generator : MonoBehaviour
     [SerializeField] protected Vector2 _generationOffsetMin;
     [SerializeField] protected Vector2 _generationOffsetMax;
 
+    [SerializeField] protected LevelLayer _levelLayer;
+
     [SerializeField] protected Transform[] _generationPoints;
 
     [SerializeField] protected Planet[] _planets;
 
-    protected PlayerMover _playerMover;
+
+    protected Player _player;
 
     [Inject]
-    protected virtual void Initialize(PlayerMover playerMover)
+    protected virtual void Initialize(Player player)
     {
-        _playerMover = playerMover;
+        _player = player;
     }
 
     private void OnEnable()
     {
-        _playerMover.OnJumped += GenerateObstacle;
-        _playerMover.OnJumped += MakeOffsetStep;
+        _player.OnCollideWithLevelLayer += GenerateObstacle;
+        _player.OnCollideWithLevelLayer += MakeOffsetStep;
     }
 
     private void OnDisable()
     {
-        _playerMover.OnJumped -= GenerateObstacle;
-        _playerMover.OnJumped -= MakeOffsetStep;
+        _player.OnCollideWithLevelLayer -= GenerateObstacle;
+        _player.OnCollideWithLevelLayer -= MakeOffsetStep;
     }
 
     protected abstract void GenerateObstacle();

@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 using Zenject;
 
 public class PlayerForcer : MonoBehaviour
 {
+    public event Action OnForced;
+
     private bool _isSliding = false;
 
     [SerializeField] private float _maxForce;
@@ -72,5 +75,7 @@ public class PlayerForcer : MonoBehaviour
     private void ThrowPlayer(Vector2 direction)
     {
         _player.Rigidbody.AddForce(direction * _force);
+
+        OnForced?.Invoke();
     }
 }

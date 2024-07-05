@@ -10,6 +10,5 @@ public class GameMenuScoreView : MonoBehaviour
         int scoreValue = PlayerPrefs.GetInt(ProjectConsts.LevelScorePrefsName);
 
         _scorText.text = $"Score is: {scoreValue}";
-        Debug.Log(scoreValue);
     }
 }
