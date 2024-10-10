@@ -4,6 +4,7 @@ using Zenject;
 public abstract class Generator : MonoBehaviour
 {
     [SerializeField] protected Vector2 _generationOffsetMin;
+    
     [SerializeField] protected Vector2 _generationOffsetMax;
 
     [SerializeField] protected LevelLayer _levelLayer;

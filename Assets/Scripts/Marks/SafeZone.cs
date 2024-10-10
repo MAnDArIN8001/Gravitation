@@ -9,6 +9,7 @@ public class SafeZone : MonoBehaviour
     private Vector3 _lastPlayerPosition;
 
     private Player _player;
+    private float _speed;
 
     [Inject]
     private void Initialize(Player player)
@@ -22,10 +23,12 @@ public class SafeZone : MonoBehaviour
         {
             return;
         }
+        
+        _speed += 2e-5f;
 
         Vector3 direction = (_player.transform.position - transform.position) + _offset;
         direction.x = 0;
 
-        transform.Translate(direction * _followingSpeed * Time.fixedDeltaTime); 
+        transform.Translate(direction * (_followingSpeed * Time.fixedDeltaTime) + _speed * Vector3.up); 
     }
 }

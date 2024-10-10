@@ -3,9 +3,17 @@ using UnityEngine;
 public class BaseGenerator : Generator
 {
     [SerializeField] private int _startPlanetsCount;
+    [SerializeField] private float _rotationSpeed = 0;
+    [SerializeField] private float _rotationSpeedDelta = 0;
 
+    private float _rotationSpeedCashed = 0;
+    private float _rotationSpeedDeltaCashed = 0;
     private void Awake()
     {
+
+        _rotationSpeedCashed = _rotationSpeed;
+        _rotationSpeedDeltaCashed = _rotationSpeedDelta;
+        
         for (int i = 0; i < _startPlanetsCount; i++)
         {
             GenerateObstacle();
@@ -14,10 +22,12 @@ public class BaseGenerator : Generator
     }
     protected override void GenerateObstacle()
     {
-        Planet planet = GetRandomPlanet();
-        Transform row = GetRandomRow();
+        var randomPlanet = GetRandomPlanet();
+        var row = GetRandomRow();
         
-        Instantiate(planet.gameObject, row.position, Quaternion.identity);
+        var planetGameObject = Instantiate(randomPlanet, row.position, Quaternion.identity);
+        _rotationSpeedCashed *= _rotationSpeedDeltaCashed;
+        planetGameObject.RotationSpeed += _rotationSpeedCashed;
 
         GenerateLevelLayer();
     }

@@ -10,6 +10,11 @@ public class Planet : MonoBehaviour
     [SerializeField] private PlanetTypes _planetType;
 
     public float AttractionForce => _attractionForce;
+    public float RotationSpeed
+    {
+        get => _rotationSpeed;
+        set => _rotationSpeed = value;
+    } 
 
     public PlanetTypes PlanetType => _planetType;
 
