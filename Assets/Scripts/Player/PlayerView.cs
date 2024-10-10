@@ -1,3 +1,5 @@
+using System;
+using System.Security.Cryptography;
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
@@ -9,6 +11,7 @@ public class PlayerView : MonoBehaviour
 
     private Player _player;
     private PlayerMover _playerMover;
+    private GameObject _destroyEffect;
 
     private void Awake()
     {
@@ -30,7 +33,7 @@ public class PlayerView : MonoBehaviour
 
     private void HandleDeath()
     {
-        Instantiate(_deathEffect, transform.position, Quaternion.identity);
+       _destroyEffect = Instantiate(_deathEffect, transform.position, Quaternion.identity);
     }
 
     private void HandleJump()
@@ -39,5 +42,10 @@ public class PlayerView : MonoBehaviour
         effectRotation.z += 180;
 
         Instantiate(_jumpEffect, transform.position, effectRotation);
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(_destroyEffect);
     }
 }
