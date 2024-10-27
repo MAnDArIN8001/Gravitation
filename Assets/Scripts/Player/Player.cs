@@ -23,16 +23,18 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<Planet>(out var planet))
         {
-            if (planet.PlanetType == PlanetTypes.Ungroundable)
+            switch (planet.PlanetType)
             {
-                OnDied?.Invoke();
-            } 
-            else if (planet.PlanetType == PlanetTypes.Groundable)
-            {
-                OnCollideWithGroundablePlanet?.Invoke();
+                case PlanetTypes.Ungroundable:
+                    OnDied?.Invoke();
+                    break;
 
-                transform.SetParent(planet.transform);
+                case PlanetTypes.Groundable:
+                    OnCollideWithGroundablePlanet?.Invoke();
+                    transform.SetParent(planet.transform);
+                    break;
             }
+
         }
     }
 

@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
+using Zenject;
 
-public class PlayerMover : MonoBehaviour
+public class PlayerMover : MonoComplexityAdjuster
 {
     public event Action OnJumped;
 
@@ -13,25 +14,22 @@ public class PlayerMover : MonoBehaviour
 
     private Player _player;
 
+    private InputManager _inputManager;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _player = GetComponent<Player>();
     }
-
-    private void OnEnable()
+    [Inject]
+    void Inject(InputManager inputManager)
     {
-        _player.OnCollideWithGroundablePlanet += HandleCollisionWithGroundablePlanet;
+        _inputManager = inputManager;
     }
 
-    private void OnDisable()
+    private void ClickEventHandler(Vector3 obj)
     {
-        _player.OnCollideWithGroundablePlanet -= HandleCollisionWithGroundablePlanet;
-    }
-
-    private void FixedUpdate()
-    {
-        if (Input.GetMouseButton(0) && _isOnPlanet)
+        if (_isOnPlanet)
         {
             transform.SetParent(null);
             OnJumped?.Invoke();
@@ -42,6 +40,19 @@ public class PlayerMover : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        _player.OnCollideWithGroundablePlanet += HandleCollisionWithGroundablePlanet;
+        _inputManager.ClickEvent += ClickEventHandler;
+    }
+
+    private void OnDisable()
+    {
+        _player.OnCollideWithGroundablePlanet -= HandleCollisionWithGroundablePlanet;
+        _inputManager.ClickEvent -= ClickEventHandler;
+
+    }
+
     private void Jump()
     {
         _rigidbody.velocity = transform.up * _jumpForce;
@@ -50,5 +61,10 @@ public class PlayerMover : MonoBehaviour
     private void HandleCollisionWithGroundablePlanet()
     {
         _isOnPlanet = true;
+    }
+
+    public override void SetComplexity(float complexity)
+    {
+        _jumpForce += complexity * 0.1f;
     }
 }

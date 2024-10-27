@@ -44,8 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a88b83a17c498418f6dea2962acc7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelManager: {fileID: 0}
+  _levelManager: {fileID: 3367255804654113264, guid: d7db70fc2358ad948a0f9fa18d80556a, type: 3}
   _sceneManager: {fileID: 0}
+  _scoreManager: {fileID: 2484930774965592009, guid: 5549b66c418e1c8449e1c731b1f3474e, type: 3}
+  _playerForcer: {fileID: 0}
+  _audioSource: {fileID: 0}
 --- !u!1 &592014385150619736
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +126,7 @@ Transform:
   - {fileID: 2221632619194632865}
   - {fileID: 2098160253363180448}
   - {fileID: 6160752235507388963}
+  - {fileID: 7812339990431538307}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1021379577137486855
@@ -139,9 +143,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 7764230577870622641}
   - {fileID: 205358444158360379}
   - {fileID: 4016548197448335924}
-  - {fileID: 7764230577870622641}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -159,6 +163,50 @@ MonoBehaviour:
   _parentNewObjectsUnderSceneContext: 0
   _contractNames: []
   _parentContractNames: []
+--- !u!1 &2983874892823259093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7812339990431538307}
+  - component: {fileID: 402025769185498726}
+  m_Layer: 0
+  m_Name: ComplexityInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7812339990431538307
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2983874892823259093}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5373997557931647397}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &402025769185498726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2983874892823259093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb5bb13f37434fc587d12410da69b6fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3805761574388994250
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,3 +254,4 @@ MonoBehaviour:
   _playerInitialRotation: {x: 0, y: 0, z: 0, w: 0}
   _playerInitialPosition: {fileID: 0}
   _player: {fileID: 2587222079428585325, guid: 36c9a75367ab1574f9750fcd8c6de3f2, type: 3}
+  _playerForcer: {fileID: 0}

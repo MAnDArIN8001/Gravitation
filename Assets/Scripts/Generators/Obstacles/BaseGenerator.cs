@@ -1,18 +1,17 @@
+using Interfaces;
 using UnityEngine;
 
-public class BaseGenerator : Generator
+public class BaseGenerator : Generator, IComplexityAdjuster 
 {
     [SerializeField] private int _startPlanetsCount;
     [SerializeField] private float _rotationSpeed = 0;
-    [SerializeField] private float _rotationSpeedDelta = 0;
 
     private float _rotationSpeedCashed = 0;
-    private float _rotationSpeedDeltaCashed = 0;
+    
     private void Awake()
     {
 
         _rotationSpeedCashed = _rotationSpeed;
-        _rotationSpeedDeltaCashed = _rotationSpeedDelta;
         
         for (int i = 0; i < _startPlanetsCount; i++)
         {
@@ -26,8 +25,9 @@ public class BaseGenerator : Generator
         var row = GetRandomRow();
         
         var planetGameObject = Instantiate(randomPlanet, row.position, Quaternion.identity);
-        _rotationSpeedCashed *= _rotationSpeedDeltaCashed;
-        planetGameObject.RotationSpeed += _rotationSpeedCashed;
+        
+        planetGameObject.RotationSpeed = _rotationSpeedCashed;
+
 
         GenerateLevelLayer();
     }
@@ -49,5 +49,10 @@ public class BaseGenerator : Generator
         int randomIndex = Random.Range(0, _generationPoints.Length);
 
         return _generationPoints[randomIndex];
+    }
+
+    public void SetComplexity(float complexity)
+    {
+        _rotationSpeedCashed *= complexity;
     }
 }

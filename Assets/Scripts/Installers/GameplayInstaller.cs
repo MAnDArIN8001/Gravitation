@@ -42,17 +42,13 @@ public class GameplayInstaller : MonoInstaller
                     Vector3.zero, 
                     Quaternion.identity,
                     null);
+        
         Container
             .Bind<ScoreManager>()
             .FromInstance(scoreManager.GetComponent<ScoreManager>())
             .AsSingle()
             .NonLazy();
-
-        Container
-            .Bind<PlayerForcer>()
-            .FromInstance(_playerForcer)
-            .AsSingle();
-
+        
         Container
             .Bind<AudioSource>()
             .FromInstance(_audioSource)

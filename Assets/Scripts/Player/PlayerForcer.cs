@@ -20,10 +20,16 @@ public class PlayerForcer : MonoBehaviour
 
     private Player _player;
 
+    private InputManager _inputManager;
+
     [Inject]
-    private void Initialize(Player player)
+    private void Initialize(Player player, InputManager inputManager)
     {
         _player = player;
+        _inputManager = inputManager;
+
+        _inputManager.ClickEvent += ClickEventHandler;
+        _inputManager.ClickEndEvent += ClickEndEventHandler;
     }
 
     private void Awake()
@@ -31,14 +37,36 @@ public class PlayerForcer : MonoBehaviour
         _trajectroyRenderer = GetComponent<TrajectoryRenderer>();
     }
 
-    private void Update()
+
+
+    private void ClickEventHandler(Vector3 obj)
     {
-        if (Input.GetMouseButtonDown(0))
-        { 
-            _isSliding = true;
-            _startSlidingPoint = Input.mousePosition;
+        _isSliding = true;
+        _startSlidingPoint = obj;
+        //Update
+    }
+
+    private void ClickEndEventHandler(Vector3 obj)
+    {
+        //Update
+        if (!_isSliding)
+        {
+            return;
         }
 
+        Vector2 direction = _startSlidingPoint - (Vector2)Input.mousePosition;
+
+        _isSliding = false;
+        _inputManager.ClickEvent -= ClickEventHandler;
+        _inputManager.ClickEndEvent -= ClickEndEventHandler;
+        
+        ThrowPlayer(direction.normalized);
+        Destroy(gameObject);
+    }
+
+    private void Update()
+    {
+        //ClickEventHandler
         if (_isSliding)
         {
             _force += (_lastMousePosition.y - Input.mousePosition.y) * _sensitivity;
@@ -56,19 +84,10 @@ public class PlayerForcer : MonoBehaviour
 
             Vector3 currentDirection = (Vector3)_startSlidingPoint - Input.mousePosition;
 
-            _trajectroyRenderer.ShowTrajectory(transform.position, currentDirection.normalized * (_force/_maxForce));
+            _trajectroyRenderer.ShowTrajectory(transform.position, currentDirection.normalized * (_force / _maxForce));
         }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-            Vector2 direction = _startSlidingPoint - (Vector2)Input.mousePosition;
-
-            _isSliding = false;
-
-            ThrowPlayer(direction.normalized);
-            Destroy(gameObject);
-        }
-
+        //ClickEndEventHandler
         _lastMousePosition = Input.mousePosition;
     }
 
@@ -78,4 +97,5 @@ public class PlayerForcer : MonoBehaviour
 
         OnForced?.Invoke();
     }
+    
 }

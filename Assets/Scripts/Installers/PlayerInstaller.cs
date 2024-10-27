@@ -9,14 +9,39 @@ public class PlayerInstaller : MonoInstaller
     [SerializeField] private Transform _playerInitialPosition;
 
     [SerializeField] private GameObject _player;
-
+    
     [SerializeField] private PlayerForcer _playerForcer;
 
     public override void InstallBindings()
     {
-        GameObject player = Container.InstantiatePrefab(_player, _playerInitialPosition.position, _playerInitialRotation, null);
+        Container
+            .BindInterfacesAndSelfTo<InputManager>()
+            .FromNew()
+            .AsSingle()
+            .NonLazy();
 
-        Container.Bind<Player>().FromInstance(player.GetComponent<Player>()).AsSingle().NonLazy();
-        Container.Bind<PlayerMover>().FromInstance(player.GetComponent<PlayerMover>()).AsSingle().NonLazy();
+        
+        GameObject player = Container
+            .InstantiatePrefab(_player, 
+                _playerInitialPosition.position, 
+                _playerInitialRotation, 
+                null);
+
+        Container
+            .Bind<Player>()
+            .FromInstance(player.GetComponent<Player>())
+            .AsSingle()
+            .NonLazy();
+        
+
+        Container
+            .BindInterfacesAndSelfTo<PlayerMover>()
+            .FromInstance(player.GetComponent<PlayerMover>())
+            .AsSingle();
+        
+        Container
+            .BindInterfacesAndSelfTo<PlayerForcer>()
+            .FromInstance(_playerForcer)
+            .AsSingle();
     }
 }

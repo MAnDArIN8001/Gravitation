@@ -6,13 +6,13 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject _menuView;
 
     private ScenManager _sceneManager;
-    private PlayerForcer _playerForcer;
+    private PlayerMover _playerMover;
 
     [Inject]
-    private void Initialize(ScenManager scenManager, PlayerForcer playerForcer)
+    private void Initialize(ScenManager scenManager, PlayerMover playerMover)
     {
         _sceneManager = scenManager;
-        _playerForcer = playerForcer;
+        _playerMover = playerMover;
     }
 
     public void GoToMainMenu()
@@ -27,13 +27,13 @@ public class PauseMenu : MonoBehaviour
 
     public void ClosePauseMenu()
     {
-        _playerForcer.enabled = true;
+        _playerMover.enabled = true;
         _menuView.SetActive(false);
     }
 
     public void OpenPauseMenu()
     {
-        _playerForcer.enabled = false;
+        _playerMover.enabled = false;
         _menuView.SetActive(true);
     }
 }
