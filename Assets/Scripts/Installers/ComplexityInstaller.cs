@@ -22,8 +22,7 @@ namespace Installers
                 {
                     Container
                         .Bind<IComplexityAdjuster>()
-                        .FromInstance(complexityAdjuster)
-                        .AsSingle();
+                        .FromInstance(complexityAdjuster);
                 }
                 else
                 {

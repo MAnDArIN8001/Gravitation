@@ -1024,6 +1024,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _followingSpeed: 0.5
   _offset: {x: 0, y: 3, z: 0}
+  _speed: 0.01
+  _waitTime: 0
 --- !u!61 &1325497959
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1305,7 +1307,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -91, y: -89.35}
+  m_AnchoredPosition: {x: -91, y: -89.3501}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5000002, y: 0.5}
 --- !u!114 &1504251247
@@ -2187,12 +2189,16 @@ PrefabInstance:
       objectReference: {fileID: 519420033}
     - target: {fileID: 402025769185498726, guid: f1fdedef2f862464eacc366d165c649f, type: 3}
       propertyPath: _complexityAdjusters.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 402025769185498726, guid: f1fdedef2f862464eacc366d165c649f, type: 3}
       propertyPath: _complexityAdjusters.Array.data[0]
       value: 
       objectReference: {fileID: 1887124454}
+    - target: {fileID: 402025769185498726, guid: f1fdedef2f862464eacc366d165c649f, type: 3}
+      propertyPath: _complexityAdjusters.Array.data[1]
+      value: 
+      objectReference: {fileID: 1325497955}
     - target: {fileID: 1021379577137486855, guid: f1fdedef2f862464eacc366d165c649f, type: 3}
       propertyPath: _monoInstallers.Array.size
       value: 4

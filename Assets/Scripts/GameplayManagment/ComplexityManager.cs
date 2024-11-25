@@ -1,5 +1,6 @@
 using System.Collections;
 using Interfaces;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -9,26 +10,25 @@ public class ComplexityManager
     private IComplexityAdjuster[] _complexityAdjusters;
     private float _complexity = 1f;
     private MonoBehaviour _context;
+    private Player _player;
     
     [Inject]
-    private void Inject(IComplexityAdjuster[] complexityAdjusters, MonoBehaviour context)
+    private void Inject(IComplexityAdjuster[] complexityAdjusters, Player player, MonoBehaviour context)
     {
         _complexityAdjusters = complexityAdjusters;
-        _context = context;
-        Debug.Log(_complexityAdjusters.Length);
-        _context.StartCoroutine(ComplexityCounter());
+        _player = player;
+        _player.OnCollideWithLevelLayer += ComplexityUpdate;
     }
 
-    IEnumerator ComplexityCounter()
+    private void ComplexityUpdate()
     {
-        for (int i = 0; i < 100; i++)
+        _complexity *= 1.001f;
+
+        foreach (var complexityAdjuster in _complexityAdjusters)
         {
-            yield return new WaitForSeconds(1f);
-            _complexity *= 1.001f;
-            foreach (var complexityAdjuster in _complexityAdjusters)
-            {
-                complexityAdjuster.SetComplexity(_complexity);
-            }
+            complexityAdjuster.SetComplexity(_complexity);
         }
     }
+    
+    
 }

@@ -53,6 +53,6 @@ public class BaseGenerator : Generator, IComplexityAdjuster
 
     public void SetComplexity(float complexity)
     {
-        _rotationSpeedCashed *= complexity;
+        _rotationSpeedCashed *= complexity + 0.01f;
     }
 }
