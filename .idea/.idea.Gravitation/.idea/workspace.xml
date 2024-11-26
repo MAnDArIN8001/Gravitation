@@ -6,20 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="856e05c6-c594-4879-954c-13d7ab488a96" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Gravitation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gravitation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameMenuScen.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameMenuScen.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameplayScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameplayScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenuScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenuScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameplayManagment/ComplexityManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameplayManagment/ComplexityManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Generators/Obstacles/BaseGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Generators/Obstacles/BaseGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Installers/ComplexityInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Installers/ComplexityInstaller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Marks/SafeZone.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Marks/SafeZone.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/GameMenuScoreView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/GameMenuScoreView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UI/Button.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/UI/Button.png.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/YandexGame/Example/Content/Textures/DebugViewingRender.renderTexture" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/YandexGame/Example/Content/Textures/DebugViewingRender.renderTexture" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/YandexGame/ScriptsYG/Editor/PostProcessBuild/ModifyIndexFile/BuildLogYG.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/YandexGame/ScriptsYG/Editor/PostProcessBuild/ModifyIndexFile/BuildLogYG.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/YandexGame/WorkingData/InfoYG.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/YandexGame/WorkingData/InfoYG.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +128,9 @@
       <workItem from="1731852702241" duration="3352000" />
       <workItem from="1731936283396" duration="1590000" />
       <workItem from="1732032367085" duration="1253000" />
-      <workItem from="1732544726300" duration="1649000" />
+      <workItem from="1732544726300" duration="2243000" />
+      <workItem from="1732607269914" duration="2000" />
+      <workItem from="1732607817851" duration="302000" />
     </task>
     <servers />
   </component>
