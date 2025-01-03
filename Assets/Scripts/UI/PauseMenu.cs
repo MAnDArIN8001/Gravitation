@@ -28,12 +28,14 @@ public class PauseMenu : MonoBehaviour
     public void ClosePauseMenu()
     {
         _playerMover.enabled = true;
+        Time.timeScale = 1f;
         _menuView.SetActive(false);
     }
 
     public void OpenPauseMenu()
     {
         _playerMover.enabled = false;
+        Time.timeScale = 0f;
         _menuView.SetActive(true);
     }
 }

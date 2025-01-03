@@ -23,19 +23,20 @@ public class ScoreManager : MonoBehaviour
     private void OnEnable()
     {
         _player.OnCollideWithGroundablePlanet += HandleCollisionWithGroundablePlanet;
-        _player.OnDied += SaveScoreResult;
+        _player.OnKill += SaveScoreResult;
+    }
+
+    private void HandleCollisionWithGroundablePlanet(Planet _)
+    {
+        _score.Value += 1;
     }
 
     private void OnDisable()
     {
         _player.OnCollideWithGroundablePlanet -= HandleCollisionWithGroundablePlanet;
-        _player.OnDied -= SaveScoreResult;
+        _player.OnKill -= SaveScoreResult;
     }
 
-    private void HandleCollisionWithGroundablePlanet() 
-    {
-        _score.Value = _score.Value + 1;
-    }
 
     private void SaveScoreResult()
     {

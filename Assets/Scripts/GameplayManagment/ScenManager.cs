@@ -27,10 +27,6 @@ public class ScenManager : MonoBehaviour
             return;
         }
 
-        switch (sceneIndex)
-        {
-        }
-        
         _isInLoading = true;
         _animator.SetTrigger(_fadeInKey);
 

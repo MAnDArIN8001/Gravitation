@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 
 public class PlayerForcer : MonoBehaviour
@@ -39,8 +42,18 @@ public class PlayerForcer : MonoBehaviour
 
 
 
-    private void ClickEventHandler(Vector3 obj)
+    private void ClickEventHandler(Vector3 obj, List<RaycastResult> results)
     {
+        if (!results.Any(result => result.gameObject.TryGetComponent(typeof(Player), out _)))
+        {
+            foreach (var result in results)
+            {
+                Debug.Log(result);
+            }
+            return;
+
+        }
+        
         _isSliding = true;
         _startSlidingPoint = obj;
         //Update

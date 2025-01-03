@@ -24,12 +24,11 @@ public class SafeZone : MonoBehaviour, IComplexityAdjuster
 
     }
 
-    private void PlayerOnOnCollideWithGroundablePlanet()
-    {        
+    private void PlayerOnOnCollideWithGroundablePlanet(Planet _)
+    {
         _waitTime = _waitTimeCash;
         _flag = false;
         StartCoroutine(TimeCounter());
-
     }
 
     private void FixedUpdate()
@@ -52,6 +51,13 @@ public class SafeZone : MonoBehaviour, IComplexityAdjuster
         transform.Translate(direction * (_followingSpeed * Time.fixedDeltaTime)); 
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<IKillable>(out var killable))
+        {
+            killable.Kill();
+        }
+    }
     IEnumerator TimeCounter()
     {
         while (_waitTime > 0)

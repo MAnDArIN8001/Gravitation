@@ -1,17 +1,16 @@
-using System;
-using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
 [RequireComponent(typeof(PlayerMover))]
 public class PlayerView : MonoBehaviour
 {
-    [SerializeField] private GameObject _deathEffect;
-    [SerializeField] private GameObject _jumpEffect;
+    [SerializeField] private ParticleSystem _deathEffect;
+    [SerializeField] private ParticleSystem _jumpEffect;
 
     private Player _player;
     private PlayerMover _playerMover;
-    private GameObject _destroyEffect;
+    private ParticleSystem _destroyEffect;
 
     private void Awake()
     {
@@ -21,19 +20,26 @@ public class PlayerView : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.OnDied += HandleDeath;
+        _player.OnKill += HandleDeath;
         _playerMover.OnJumped += HandleJump;
     }
 
     private void OnDisable()
     {
-        _player.OnDied -= HandleDeath;
+        _player.OnKill -= HandleDeath;
         _playerMover.OnJumped += HandleJump;
+        Destroy(_destroyEffect);
     }
 
     private void HandleDeath()
     {
        _destroyEffect = Instantiate(_deathEffect, transform.position, Quaternion.identity);
+       _player.WaitEndKillEffect(_destroyEffect);
+       _player.OnEndKillEffect += PlayerOnOnEndKillEffect;
+       void PlayerOnOnEndKillEffect()
+       {
+           OnDisable();
+       }
     }
 
     private void HandleJump()

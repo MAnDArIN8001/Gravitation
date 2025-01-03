@@ -20,12 +20,12 @@ public class LevelManager : MonoBehaviour
 
     private void OnEnable()
     {
-        _player.OnDied += HadlePlayerDeath;
+        _player.OnEndKillEffect += HadlePlayerDeath;
     }
 
     private void OnDisable()
     {
-        _player.OnDied -= HadlePlayerDeath;
+        _player.OnEndKillEffect -= HadlePlayerDeath;
     }
 
     private void HadlePlayerDeath()

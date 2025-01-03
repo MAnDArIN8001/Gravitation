@@ -5,7 +5,8 @@ public class BaseGenerator : Generator, IComplexityAdjuster
 {
     [SerializeField] private int _startPlanetsCount;
     [SerializeField] private float _rotationSpeed = 0;
-
+    [SerializeField] private Sprite[] _planetSprites;
+    [SerializeField] private Planet _planetPrefab;
     private float _rotationSpeedCashed = 0;
     
     private void Awake()
@@ -21,14 +22,14 @@ public class BaseGenerator : Generator, IComplexityAdjuster
     }
     protected override void GenerateObstacle()
     {
-        var randomPlanet = GetRandomPlanet();
+        var sprite = GetRandomPlanetSprite();
         var row = GetRandomRow();
         
-        var planetGameObject = Instantiate(randomPlanet, row.position, Quaternion.identity);
-        
+        var planetGameObject = Instantiate(_planetPrefab, row.position, Quaternion.identity);
+
+        planetGameObject.SetSprite(sprite);
         planetGameObject.RotationSpeed = _rotationSpeedCashed;
-
-
+        
         GenerateLevelLayer();
     }
 
@@ -37,11 +38,11 @@ public class BaseGenerator : Generator, IComplexityAdjuster
         Instantiate(_levelLayer, transform.position, Quaternion.identity);
     }
 
-    private Planet GetRandomPlanet()
+    private Sprite GetRandomPlanetSprite()
     {
-        int randomIndex = Random.Range(0, _planets.Length);
+        int randomIndex = Random.Range(0, _planetSprites.Length);
 
-        return _planets[randomIndex];
+        return _planetSprites[randomIndex];
     }
 
     private Transform GetRandomRow()

@@ -11,8 +11,7 @@ public abstract class Generator : MonoBehaviour
 
     [SerializeField] protected Transform[] _generationPoints;
 
-    [SerializeField] protected Planet[] _planets;
-
+    
 
     protected Player _player;
 

@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 
 public class PlayerMover : MonoComplexityAdjuster
@@ -13,6 +16,8 @@ public class PlayerMover : MonoComplexityAdjuster
     private Rigidbody2D _rigidbody;
 
     private Player _player;
+    
+    private Planet _planet;
 
     private InputManager _inputManager;
 
@@ -27,8 +32,10 @@ public class PlayerMover : MonoComplexityAdjuster
         _inputManager = inputManager;
     }
 
-    private void ClickEventHandler(Vector3 obj)
+    private void ClickEventHandler(Vector3 obj, List<RaycastResult> results)
     {
+
+        
         if (_isOnPlanet)
         {
             transform.SetParent(null);
@@ -46,6 +53,22 @@ public class PlayerMover : MonoComplexityAdjuster
         _inputManager.ClickEvent += ClickEventHandler;
     }
 
+    private void HandleCollisionWithGroundablePlanet(Planet planet)
+    {
+        _isOnPlanet = true;
+
+        if (_planet != null) _planet.OnKill -= PlanetOnOnKill;
+        
+        _planet = planet;
+        _planet.OnKill += PlanetOnOnKill;
+
+        void PlanetOnOnKill()
+        {
+            _isOnPlanet = false;
+            _planet.OnKill -= PlanetOnOnKill;
+        }
+    }
+
     private void OnDisable()
     {
         _player.OnCollideWithGroundablePlanet -= HandleCollisionWithGroundablePlanet;
@@ -56,11 +79,6 @@ public class PlayerMover : MonoComplexityAdjuster
     private void Jump()
     {
         _rigidbody.velocity = transform.up * _jumpForce;
-    }
-
-    private void HandleCollisionWithGroundablePlanet()
-    {
-        _isOnPlanet = true;
     }
 
     public override void SetComplexity(float complexity)

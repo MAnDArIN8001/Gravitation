@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using Zenject;
 
 public class InputManager: ITickable
 {
-    public Action<Vector3> ClickEvent;
+    public Action<Vector3, List<RaycastResult>> ClickEvent;
     public Action<Vector3> ClickEndEvent;
 
     private bool _clickToUI = false;
@@ -17,14 +15,14 @@ public class InputManager: ITickable
     {
         if (Input.GetMouseButtonDown(0)) 
         {
-            var сheckUIInteraction = СheckUIInteraction();
+            var сheckUIInteraction = СheckUIInteraction(out var results);
 
             if (!_clickToUI && сheckUIInteraction)
             {
                 _clickToUI = true;
                 return;
             }
-            ClickEvent?.Invoke(Input.mousePosition);
+            ClickEvent?.Invoke(Input.mousePosition, results);
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -37,20 +35,20 @@ public class InputManager: ITickable
         }
     }
 
-    private bool СheckUIInteraction()
+    private bool СheckUIInteraction(out List<RaycastResult> results)
     {
         PointerEventData pointerData = new PointerEventData(EventSystem.current)
         {
             position = Input.mousePosition
         };
 
-        List<RaycastResult> results = new List<RaycastResult>();
+         results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(pointerData, results);
         
-        Debug.Log(results);
         
         foreach (var raycastResult in results)
         {
+            Debug.Log(raycastResult);
             if (raycastResult.gameObject.transform is RectTransform)
             {
                 return true;

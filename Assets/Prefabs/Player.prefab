@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ec5bfa1ef62b841a222484a3e48cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _deathEffect: {fileID: 4734113462435090961, guid: c15955a9fa1663345aead02c1532a332, type: 3}
-  _jumpEffect: {fileID: 2078049442719088168, guid: 26fe4bed8cae81a4faa7bd2c962a3448, type: 3}
+  _deathEffect: {fileID: 6440414826622919694, guid: c15955a9fa1663345aead02c1532a332, type: 3}
+  _jumpEffect: {fileID: 5680396182029253815, guid: 26fe4bed8cae81a4faa7bd2c962a3448, type: 3}
 --- !u!114 &4248023958706885487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a13a5f9c448694fb2237e12040a38a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _minVelocityMagnitude: 0
 --- !u!114 &1381886020331667802
 MonoBehaviour:
   m_ObjectHideFlags: 0

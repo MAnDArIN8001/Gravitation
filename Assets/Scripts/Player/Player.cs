@@ -2,21 +2,22 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Player : MonoBehaviour
+public class Player : Entity
 {
-    public event Action OnDied;
-    public event Action OnCollideWithGroundablePlanet;
+    public event Action<Planet> OnCollideWithGroundablePlanet;
     public event Action OnCollideWithLevelLayer;
 
     [SerializeField] private float _minVelocityMagnitude;
 
     private Rigidbody2D _rigidbody;
+    private SpriteRenderer _spriteRenderer;
 
     public Rigidbody2D Rigidbody => _rigidbody;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -26,11 +27,11 @@ public class Player : MonoBehaviour
             switch (planet.PlanetType)
             {
                 case PlanetTypes.Ungroundable:
-                    OnDied?.Invoke();
+                    Kill();
                     break;
 
                 case PlanetTypes.Groundable:
-                    OnCollideWithGroundablePlanet?.Invoke();
+                    OnCollideWithGroundablePlanet?.Invoke(planet);
                     transform.SetParent(planet.transform);
                     break;
             }
@@ -46,11 +47,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    
+    public override void Kill()
     {
-        if (collision.TryGetComponent<SafeZone>(out var safeZone))
-        {
-            OnDied?.Invoke();
-        }
-    }
+        _spriteRenderer.enabled = false;
+        base.Kill();
+   }
+
+
 }
